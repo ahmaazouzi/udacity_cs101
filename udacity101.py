@@ -93,6 +93,22 @@ Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures."
 # Return:
 #   The newly created network data structure
 def create_data_structure(string_input):
+    profiles = string_input.split(".")
+    for elem in profiles:
+    	if not elem:
+    		profiles.remove(elem)
+    network = []
+    for elem in range(len(profiles)):
+        if elem % 2 == 0:
+            raw_profile = profiles[elem:elem+2]
+            friend_str = raw_profile[0].split(" is connected to ")
+            friend_list = friend_str[1].split(", ")
+            profile_name = friend_str[0]
+            game_list = raw_profile[1].split(" likes to play ")[1].split(", ")     
+            dicto = {}
+            profile = [friend_list, game_list]
+            dicto[profile_name]=profile
+            network.append(dicto)
     return network
 
 # ----------------------------------------------------------------------------- # 
@@ -251,8 +267,8 @@ def find_path_to_friend(network, user_A, user_B):
 # Replace this with your own procedure! You can also uncomment the lines below
 # to see how your code behaves. Have fun!
 
-#net = create_data_structure(example_input)
-#print net
+net = create_data_structure(example_input)
+print net
 #print get_connections(net, "Debra")
 #print get_connections(net, "Mercedes")
 #print get_games_liked(net, "John")
@@ -262,4 +278,3 @@ def find_path_to_friend(network, user_A, user_B):
 #print get_secondary_connections(net, "Mercedes")
 #print count_common_connections(net, "Mercedes", "John")
 #print find_path_to_friend(net, "John", "Ollie")
-print example_input
